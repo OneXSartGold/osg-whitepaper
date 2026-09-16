@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OSG Token · OneX Smart Gold — Official Whitepaper v4.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#080c16;
+    --bg2:#0b1120;
+    --card:#0f1729;
+    --card2:#121c33;
+    --line:rgba(255,255,255,.07);
+    --gold1:#E9B949;
+    --gold2:#F3D580;
+    --gold3:#B8862B;
+    --txt:#e9edf3;
+    --txt2:#b9c2d0;
+    --txt3:#7f8899;
+    --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+
+  .page{
+    position:relative;width:210mm;height:297mm;margin:0 auto 10px;
+    background:
+      radial-gradient(900px 500px at 50% -10%,rgba(233,185,73,.055),transparent 60%),
+      linear-gradient(180deg,var(--bg2),var(--bg));
+    padding:22mm 18mm 26mm;overflow:hidden;
+  }
+  .grid-fade{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(70% 55% at 50% 40%,#000,transparent 80%);
+            mask-image:radial-gradient(70% 55% at 50% 40%,#000,transparent 80%);}
+
+  /* ---------- footer bar ---------- */
+  .foot{position:absolute;left:0;right:0;bottom:0;height:16mm;display:flex;
+    align-items:center;justify-content:space-between;padding:0 18mm;
+    border-top:1px solid var(--line);background:rgba(4,7,14,.55)}
+  .foot .l{display:flex;align-items:center;gap:8px;font-family:var(--mono);
+    font-size:8pt;letter-spacing:1.6px;color:var(--txt3)}
+  .foot .r{font-family:var(--mono);font-size:8pt;letter-spacing:1.6px;color:var(--txt3)}
+  .gem{width:13px;height:13px;transform:rotate(45deg);border:1.5px solid var(--gold3);
+    border-radius:2px;position:relative}
+  .gem::after{content:"";position:absolute;inset:3px;border:1px solid rgba(233,185,73,.45);border-radius:1px}
+
+  /* ---------- section head ---------- */
+  .shead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9mm}
+  .shead .n{font-family:var(--mono);font-size:8.5pt;letter-spacing:3.4px;color:var(--gold1);font-weight:600}
+  .shead .t{font-family:var(--mono);font-size:8.5pt;letter-spacing:3.4px;color:var(--txt3)}
+  h1.big{font-size:30pt;font-weight:700;letter-spacing:-.4px;line-height:1.1}
+  .rule{width:62px;height:3px;margin:7mm 0 8mm;border-radius:2px;
+    background:linear-gradient(90deg,var(--gold2),var(--gold3) 65%,transparent)}
+  .lede{font-size:12.5pt;line-height:1.65;color:var(--txt2);max-width:150mm}
+
+  /* ---------- cards ---------- */
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:6mm;margin-top:8mm}
+  .card{background:linear-gradient(180deg,var(--card2),var(--card));
+    border:1px solid var(--line);border-radius:14px;padding:7mm 6mm}
+  .card .ic{font-size:16pt;line-height:1;margin-bottom:5mm;display:block}
+  .card h3{font-size:12.5pt;font-weight:700;margin-bottom:3mm}
+  .card p{font-size:10pt;line-height:1.6;color:var(--txt2)}
+
+  /* ---------- data table ---------- */
+  table{width:100%;border-collapse:collapse;margin-top:6mm}
+  thead th{font-family:var(--mono);font-size:8pt;letter-spacing:2.2px;color:var(--gold1);
+    text-align:left;padding:0 4mm 3mm;font-weight:600;text-transform:uppercase}
+  thead th.r,td.r{text-align:right}
+  tbody tr{border-top:1px solid var(--line)}
+  tbody td{padding:3.3mm 4mm;font-size:10.5pt;color:var(--txt2)}
+  tbody td.k{color:var(--txt);font-weight:600}
+  tbody td.num{font-family:var(--mono);font-size:10pt;color:var(--txt)}
+  tbody td.gold{font-family:var(--mono);font-size:10pt;color:var(--gold1);font-weight:600}
+  .rk{display:inline-flex;align-items:center;gap:7px}
+  .rk b{font-family:var(--mono);font-size:9pt;color:var(--gold1)}
+
+  /* ---------- callout ---------- */
+  .call{margin-top:5mm;border:1px solid rgba(233,185,73,.26);border-radius:12px;
+    background:linear-gradient(180deg,rgba(233,185,73,.07),rgba(233,185,73,.02));padding:5mm}
+  .call b{color:var(--gold1)}
+  .call p{font-size:10pt;line-height:1.65;color:var(--txt2)}
+  .warn{border-color:rgba(242,103,92,.3);
+    background:linear-gradient(180deg,rgba(242,103,92,.07),rgba(242,103,92,.02))}
+  .warn b{color:#F2675C}
+
+  ul.bul{margin-top:6mm;list-style:none}
+  ul.bul li{position:relative;padding-left:7mm;margin-bottom:4.5mm;font-size:10.5pt;
+    line-height:1.62;color:var(--txt2)}
+  ul.bul li::before{content:"▸";position:absolute;left:0;color:var(--gold1)}
+  ul.bul li b{color:var(--txt)}
+
+  /* ---------- cover ---------- */
+  .cover{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;height:243mm}
+  .mark{width:44mm;height:44mm;border-radius:16px;border:1px solid rgba(233,185,73,.25);
+    background:radial-gradient(60% 60% at 50% 40%,rgba(233,185,73,.22),rgba(8,12,22,.9) 70%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 70px rgba(233,185,73,.18)}
+  .mark .d{width:36mm;height:36mm;border-radius:11px;display:block}
+  .wordmark{font-size:40pt;font-weight:700;letter-spacing:1px;margin-top:9mm;
+    background:linear-gradient(180deg,#fff6df,var(--gold1) 55%,var(--gold3));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{font-family:var(--mono);font-size:10pt;letter-spacing:8px;color:var(--txt3);margin-top:3mm}
+  .quote{font-style:italic;font-size:14pt;line-height:1.6;color:var(--txt2);
+    max-width:120mm;margin:9mm auto 0}
+  .badge{margin-top:9mm;display:inline-flex;align-items:center;gap:9px;
+    border:1px solid rgba(233,185,73,.3);border-radius:999px;padding:4mm 8mm;
+    font-family:var(--mono);font-size:9.5pt;letter-spacing:2.6px;color:var(--gold1);
+    background:rgba(233,185,73,.05)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--gold1);
+    box-shadow:0 0 10px var(--gold1)}
+  .stats{display:flex;gap:13mm;margin-top:10mm}
+  .stat{text-align:center}
+  .stat .v{font-size:19pt;font-weight:700;color:var(--gold1)}
+  .stat .l{font-family:var(--mono);font-size:7.5pt;letter-spacing:2.2px;color:var(--txt3);margin-top:2mm}
+
+  /* ---------- contents ---------- */
+  .toc{margin-top:4mm}
+  .toc a{display:flex;align-items:baseline;gap:5mm;text-decoration:none;color:inherit;
+    padding:4mm 0;border-bottom:1px solid var(--line)}
+  .toc .num{font-family:var(--mono);font-size:9pt;color:var(--gold1);width:16mm;flex:none}
+  .toc .nm{font-size:11.5pt;flex:1}
+  .toc .tag{font-family:var(--mono);font-size:7.5pt;letter-spacing:1.6px;
+    color:#08150E;background:linear-gradient(135deg,var(--gold2),var(--gold1));
+    border-radius:4px;padding:1.4mm 2.6mm}
+
+  @media print{
+    body{background:#fff}
+    .page{margin:0;box-shadow:none;page-break-after:always}
+  }
+</style>
+</head>
+<body>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="cover">
+    <div class="mark"><img class="d" src="data:image/jpeg;base64,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" alt="OSG"></div>
+    <div class="wordmark">OSG</div>
+    <div class="sub">ONEX SMART GOLD</div>
+    <p class="quote">"A fixed-supply, gold-inspired digital asset with a
+      transparent, capped emission schedule on Polygon."</p>
+    <div class="badge"><span class="dot"></span>OFFICIAL WHITEPAPER &middot; VERSION 4.0</div>
+    <div class="stats">
+      <div class="stat"><div class="v">23M</div><div class="l">FIXED SUPPLY</div></div>
+      <div class="stat"><div class="v">3 Yr</div><div class="l">HALVING CYCLE</div></div>
+      <div class="stat"><div class="v">Polygon</div><div class="l">NETWORK</div></div>
+      <div class="stat"><div class="v">0</div><div class="l">PRESALE / ICO</div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">CONTENTS</div><div class="t">WHITEPAPER V4.0</div></div>
+  <h1 class="big">Table of Contents</h1>
+  <div class="rule"></div>
+  <div class="toc">
+    <a><span class="num">01</span><span class="nm">Executive Summary</span></a>
+    <a><span class="num">02</span><span class="nm">Vision &amp; Design Principles</span></a>
+    <a><span class="num">03</span><span class="nm">The Problem</span></a>
+    <a><span class="num">04</span><span class="nm">The OSG Approach</span></a>
+    <a><span class="num">05</span><span class="nm">Ecosystem Architecture</span><span class="tag">REWRITTEN</span></a>
+    <a><span class="num">06</span><span class="nm">Tokenomics &amp; Emission Model</span><span class="tag">REVISED</span></a>
+    <a><span class="num">07</span><span class="nm">Term Staking</span><span class="tag">NEW</span></a>
+    <a><span class="num">08</span><span class="nm">LP Mining</span><span class="tag">NEW</span></a>
+    <a><span class="num">09</span><span class="nm">P2P Exchange</span><span class="tag">NEW</span></a>
+    <a><span class="num">10</span><span class="nm">Messenger &amp; In-App Assistant</span></a>
+    <a><span class="num">11</span><span class="nm">Governance &amp; Security</span></a>
+    <a><span class="num">12</span><span class="nm">Risk Factors</span><span class="tag">NEW</span></a>
+    <a><span class="num">13</span><span class="nm">Roadmap</span></a>
+    <a><span class="num">14</span><span class="nm">Verified Contracts</span></a>
+    <a><span class="num">15</span><span class="nm">Legal Notice &amp; Disclaimer</span><span class="tag">NEW</span></a>
+  </div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 01</div><div class="t">EXECUTIVE SUMMARY</div></div>
+  <h1 class="big">Executive Summary</h1>
+  <div class="rule"></div>
+  <p class="lede">OSG (OneX Smart Gold) is a fixed-supply digital asset on Polygon with a transparent, capped emission schedule and open, verifiable contracts.</p>
+  <ul class="bul">
+    <li><b>Fixed supply.</b> The total supply is permanently capped at 23,000,000 OSG. No mechanism exists to mint beyond the pre-defined emission schedule.</li>
+    <li><b>Capped, scheduled emission.</b> Rewards are released from a controlled daily schedule with hard mint ceilings enforced in the contracts, and a halving approximately every three years.</li>
+    <li><b>No presale, no ICO, no private round.</b> Tokens were not sold ahead of launch. Circulating supply grows only through the published emission schedule.</li>
+    <li><b>Participation, not promises.</b> Holders may lock tokens for a fixed term or provide liquidity. Reward rates are variable, set by the schedule and by how many participants share it, and are not fixed or guaranteed.</li>
+    <li><b>Verified and readable.</b> Every contract is open-source and verified on Polygonscan. Every figure in this document can be read directly from the chain.</li>
+  </ul>
+  <div class="call"><p><b>This document is informational.</b> It describes how the protocol works. It is not an offer to sell, a solicitation to buy, or financial advice. See Section 15.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 02</div><div class="t">VISION &amp; PRINCIPLES</div></div>
+  <h1 class="big">Vision &amp; Design Principles</h1>
+  <div class="rule"></div>
+  <p class="lede">OSG is built on the premise that a digital asset should be judged by what its contracts enforce, not by what its marketing asserts.</p>
+  <div class="cards">
+    <div class="card"><span class="ic">🔒</span><h3>Scarcity by construction</h3><p>A hard cap of 23,000,000 OSG, enforced by the token contract rather than by policy.</p></div>
+    <div class="card"><span class="ic">📉</span><h3>Predictable issuance</h3><p>A published daily schedule with periodic halving, so future supply is knowable in advance.</p></div>
+    <div class="card"><span class="ic">🔍</span><h3>Verifiable over persuasive</h3><p>Every claim in this document maps to a contract that anyone can read on Polygonscan.</p></div>
+    <div class="card"><span class="ic">⚖️</span><h3>Delayed control</h3><p>Parameter changes pass through a timelock, so no single action takes effect instantly.</p></div>
+    <div class="card"><span class="ic">🧱</span><h3>Separation of duties</h3><p>Value, accounting and presentation live in separate contracts, so a view can be replaced without touching balances.</p></div>
+    <div class="card"><span class="ic">🌐</span><h3>Open participation</h3><p>No allowlist, no minimum ticket, no gatekeeper. Anyone with a Polygon wallet can take part.</p></div>
+  </div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 03</div><div class="t">THE PROBLEM</div></div>
+  <h1 class="big">The Problem</h1>
+  <div class="rule"></div>
+  <p class="lede">The failures below are common in reward-bearing token systems. Each one informed a specific design decision in OSG.</p>
+  <ul class="bul">
+    <li><b>Unbounded issuance.</b> Many reward-bearing tokens mint on demand. Supply expands to meet payouts, and holders absorb the dilution.</li>
+    <li><b>Opaque accounting.</b> Reward figures are often produced off-chain and shown in an interface that cannot be independently checked.</li>
+    <li><b>Unilateral control.</b> Where an owner key can change rates instantly, every published parameter is provisional.</li>
+    <li><b>Rates presented as returns.</b> Variable, participation-dependent reward rates are frequently marketed as fixed yields, which they are not.</li>
+    <li><b>Documentation that drifts.</b> Published papers fall behind deployed code, leaving readers with figures that no longer match the chain.</li>
+  </ul>
+  <div class="call"><p><b>The last point applies to this project too.</b> Version 3.0 of this paper described an earlier architecture and was not kept current as contracts were replaced. Version 4.0 is written against the deployed contracts listed in Section 14, and its source is version-controlled so that it can be corrected as quickly as the code.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 04</div><div class="t">THE OSG APPROACH</div></div>
+  <h1 class="big">The OSG Approach</h1>
+  <div class="rule"></div>
+  <p class="lede">Each element below answers one of the problems in Section 03, and each is implemented in a contract listed in Section 14.</p>
+  <div class="cards">
+    <div class="card"><span class="ic">💎</span><h3>Hard-capped supply</h3><p>23,000,000 OSG maximum. Mint ceilings are enforced in the token and reward contracts.</p></div>
+    <div class="card"><span class="ic">📆</span><h3>Scheduled emission</h3><p>A fixed daily release divided between protocol activities, halving roughly every three years.</p></div>
+    <div class="card"><span class="ic">🏦</span><h3>Contract-held funds</h3><p>Staked balances and liquidity positions are held by verified contracts, not by a company wallet.</p></div>
+    <div class="card"><span class="ic">⏳</span><h3>Timelocked governance</h3><p>Parameter changes are queued with an enforced delay before they can execute.</p></div>
+    <div class="card"><span class="ic">🧾</span><h3>On-chain accounting</h3><p>Balances, accruals and payouts are stored and computed on-chain and readable by anyone.</p></div>
+    <div class="card"><span class="ic">💬</span><h3>Utility beyond yield</h3><p>Wallet-to-wallet messaging and a peer-to-peer exchange are part of the protocol, not add-ons.</p></div>
+  </div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 05</div><div class="t">ECOSYSTEM ARCHITECTURE</div></div>
+  <h1 class="big">Ecosystem Architecture</h1>
+  <div class="rule"></div>
+  <p class="lede">Thirteen deployed contracts, each with a single responsibility. Value, accounting and presentation are deliberately separated.</p>
+  <table>
+    <thead><tr><th>Contract</th><th>Role</th><th class="r">Address</th></tr></thead>
+    <tbody>
+      <tr><td class="k">OSG Token</td><td>ERC-20, fixed cap</td><td class="num r">0xba05…7415</td></tr>
+      <tr><td class="k">Reward Pool</td><td>Daily emission and distribution</td><td class="num r">0xDc4f…2855</td></tr>
+      <tr><td class="k">Reward Storage</td><td>Holds undistributed reward balance</td><td class="num r">0xa0b2…1BEcB</td></tr>
+      <tr><td class="k">Term Staking v2</td><td>Fixed-term locked positions</td><td class="num r">0xb3DE…7cCc</td></tr>
+      <tr><td class="k">LP Mining</td><td>Liquidity-provider rewards</td><td class="num r">0x1F04…d0fC</td></tr>
+      <tr><td class="k">Referral Ledger v5</td><td>Introduction rewards accounting</td><td class="num r">0x5838…c52A</td></tr>
+      <tr><td class="k">Referral Lens</td><td>Read-only views over the ledger</td><td class="num r">0xdF94…7Ff27</td></tr>
+      <tr><td class="k">Referral Health</td><td>Diagnostics for the ledger</td><td class="num r">0x43dA…f435C</td></tr>
+      <tr><td class="k">P2P Exchange</td><td>On-chain order book, 0.5% fee</td><td class="num r">0x269E…E1bb</td></tr>
+      <tr><td class="k">Treasury</td><td>Programme funding</td><td class="num r">0x4669…DDF50</td></tr>
+      <tr><td class="k">Messenger</td><td>Wallet-to-wallet messaging</td><td class="num r">0x29c6…FA5c</td></tr>
+      <tr><td class="k">Media Storage</td><td>Message media references</td><td class="num r">0x88E6…D07A</td></tr>
+      <tr><td class="k">TimelockDAO</td><td>Delayed parameter control</td><td class="num r">0xE2E8…0D4c</td></tr>
+    </tbody>
+  </table>
+  <div class="call"><p><b>Replaceable views, permanent ledgers.</b> Accounting contracts hold balances and rules; lens contracts hold only read-only views, so a lens can be replaced without touching a balance. Full addresses appear in Section 14.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 06</div><div class="t">TOKENOMICS</div></div>
+  <h1 class="big">Tokenomics &amp; Emission Model</h1>
+  <div class="rule"></div>
+  <p class="lede">Supply is fixed at issuance. Everything below describes how the remaining supply enters circulation, and nothing else can.</p>
+  <table>
+    <thead><tr><th>Allocation of daily emission</th><th class="r">Share</th></tr></thead>
+    <tbody>
+      <tr><td class="k">LP Mining and Term Staking</td><td class="gold r">68%</td></tr>
+      <tr><td class="k">Referral rewards</td><td class="gold r">31%</td></tr>
+      <tr><td class="k">Legacy staking contract</td><td class="gold r">1%</td></tr>
+    </tbody>
+  </table>
+  <ul class="bul">
+    <li><b>Hard cap.</b> 23,000,000 OSG. The token contract cannot mint beyond this figure under any circumstance.</li>
+    <li><b>Daily release.</b> A fixed quantity is released each day and divided between the buckets above, halving approximately every three years. LP Mining and Term Staking draw from one shared bucket, divided between them by a governance parameter.</li>
+    <li><b>Team allocation.</b> 460,000 OSG (2% of supply) is assigned to a vesting wallet. No presale, private round or public sale was held.</li>
+    <li><b>Adjustable shares.</b> The split is a governance parameter and has been changed before; the figures above were current on 16 September 2026. The live values are always readable from the Reward Pool contract, which is the authoritative source.</li>
+  </ul>
+  <div class="call"><p><b>On the referral allocation.</b> A share of emission funds rewards for introducing new participants. It is paid from this budget and never deducted from another participant's balance. The programme's parameters are published in the DApp and enforced on-chain; they are deliberately not reproduced here, as they are subject to governance change and this document is not the authoritative source for them.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 07</div><div class="t">TERM STAKING</div></div>
+  <h1 class="big">Term Staking</h1>
+  <div class="rule"></div>
+  <p class="lede">Term Staking allows a holder to lock OSG for a fixed period and receive a share of the daily emission allocated to staking.</p>
+  <ul class="bul">
+    <li><b>Fixed 180-day term.</b> A position is locked for 180 days from the moment it is opened. There is no early exit.</li>
+    <li><b>Daily accrual.</b> Rewards accrue continuously from the staking share of emission and may be claimed at any time during the term.</li>
+    <li><b>Two-times ceiling.</b> A position stops accruing once total rewards reach twice the amount staked. The principal then unlocks and is returned in full.</li>
+    <li><b>Variable rate.</b> The daily rate depends on the emission schedule and on how much is staked in total. It falls as participation rises. No rate is fixed, promised, or guaranteed.</li>
+    <li><b>Contract-held.</b> Staked balances are held by the Term Staking contract. No individual or company can move them.</li>
+  </ul>
+  <div class="call warn"><p><b>What this is not.</b> Term Staking is not a deposit, not a savings product, and not an instrument bearing interest. It is participation in a capped emission schedule, and the amount received depends on factors outside any participant's control.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 08</div><div class="t">LP MINING</div></div>
+  <h1 class="big">LP Mining</h1>
+  <div class="rule"></div>
+  <p class="lede">LP Mining rewards participants who supply liquidity to the OSG trading pair, making the market deeper and less volatile for everyone.</p>
+  <ul class="bul">
+    <li><b>Provide liquidity first.</b> A participant supplies OSG and POL to the OSG/WPOL pair on QuickSwap V2 and receives LP tokens representing that share.</li>
+    <li><b>Stake the LP token.</b> The LP token is deposited into the LP Mining contract, which accrues rewards from the mining share of emission.</li>
+    <li><b>365-day term.</b> Each deposit is locked for 365 days. There is no early exit.</li>
+    <li><b>The largest share.</b> LP Mining receives the largest portion of daily emission, because deep liquidity benefits every holder.</li>
+  </ul>
+  <div class="call warn"><p><b>Impermanent loss is real and is not compensated.</b> Providing liquidity to a two-token pair means the value of the position changes with the ratio between them. A participant may withdraw fewer OSG, or less total value, than they deposited — regardless of rewards earned. Anyone considering LP Mining should understand impermanent loss before committing funds.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 09</div><div class="t">P2P EXCHANGE</div></div>
+  <h1 class="big">P2P Exchange</h1>
+  <div class="rule"></div>
+  <p class="lede">A peer-to-peer venue built into the protocol, allowing holders to trade directly with each other on-chain.</p>
+  <ul class="bul">
+    <li><b>On-chain order book.</b> Orders are placed, matched and settled by the exchange contract. There is no off-chain matching engine and no custodian.</li>
+    <li><b>Automatic matching.</b> An incoming order fills against the best available price on the opposite side, without waiting for a counterparty to act.</li>
+    <li><b>Flat 0.5% fee.</b> Charged on execution and applied identically to every participant.</li>
+    <li><b>Self-custody throughout.</b> Funds move from wallet to wallet through the contract. At no point does any operator hold participant funds.</li>
+    <li><b>Expired orders.</b> An unfilled order can be cancelled and the committed funds returned. Expiry does not release funds automatically; a cancellation must be submitted.</li>
+  </ul>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 10</div><div class="t">UTILITY</div></div>
+  <h1 class="big">Messenger &amp; In-App Assistant</h1>
+  <div class="rule"></div>
+  <p class="lede">Two features that exist to make the protocol usable rather than merely investable.</p>
+  <div class="cards">
+    <div class="card"><span class="ic">💬</span><h3>Wallet-to-wallet messaging</h3><p>Message any holder using their wallet address. No phone number, no email address, no account registration.</p></div>
+    <div class="card"><span class="ic">🗂️</span><h3>Text and media</h3><p>Message references are recorded on Polygon; media is carried on IPFS, which removes the length limits of a purely on-chain design.</p></div>
+    <div class="card"><span class="ic">🤖</span><h3>In-app assistant</h3><p>A conversational assistant answers questions about the protocol in the user's own language and reads the connected wallet's live position.</p></div>
+    <div class="card"><span class="ic">🛡️</span><h3>No credential requests, ever</h3><p>Neither the assistant nor any part of the protocol will ask for a seed phrase or private key. Any message that does is fraudulent.</p></div>
+  </div>
+  <div class="call warn"><p><b>Messaging is not private communication.</b> Message references are written to a public blockchain and media is stored on a public network. Participants should treat messaging as pseudonymous, not confidential, and should not transmit sensitive personal information through it.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 11</div><div class="t">GOVERNANCE &amp; SECURITY</div></div>
+  <h1 class="big">Governance &amp; Security</h1>
+  <div class="rule"></div>
+  <p class="lede">Control over the protocol is constrained by contract design and by an enforced delay on change.</p>
+  <ul class="bul">
+    <li><b>Timelocked changes.</b> Parameter changes are queued in the TimelockDAO contract and cannot execute until the delay has elapsed, giving holders time to observe and respond.</li>
+    <li><b>Verified source.</b> Every contract listed in Section 14 is open-source and verified on Polygonscan. Compiled bytecode can be matched against the published source.</li>
+    <li><b>Mint ceilings.</b> Reward distribution is bounded by hard caps written into the contracts, independent of any governance parameter.</li>
+    <li><b>Separation of ledger and view.</b> Read-only contracts can be replaced without migration, because they hold no balances.</li>
+    <li><b>Known limitation.</b> Certain administrative functions remain held by an owner key pending full transfer to the timelock. This is disclosed rather than obscured, and progress is tracked in the roadmap.</li>
+  </ul>
+  <div class="call warn"><p><b>Audit status.</b> The contracts have undergone internal review and iterative correction. No third-party audit report is published at the date of this document. Readers should weigh this accordingly and should not treat verification on Polygonscan as equivalent to an audit.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 12</div><div class="t">RISK FACTORS</div></div>
+  <h1 class="big">Risk Factors</h1>
+  <div class="rule"></div>
+  <p class="lede">Participation carries material risk of loss. The factors below are not exhaustive and are stated plainly rather than minimised.</p>
+  <ul class="bul">
+    <li><b>Price risk.</b> The market price of OSG may fall, including to zero. Nothing in the protocol supports, defends or guarantees any price.</li>
+    <li><b>Variable rewards.</b> Reward rates are not fixed. They fall as participation rises, fall again at each halving, and may be changed by governance within the limits the contracts allow.</li>
+    <li><b>Lock-up risk.</b> Term Staking locks funds for 180 days and LP Mining for 365 days. There is no early exit under any circumstance, including a falling market.</li>
+    <li><b>Impermanent loss.</b> Liquidity positions may return less value than was deposited, irrespective of rewards earned.</li>
+    <li><b>Smart-contract risk.</b> Contracts may contain defects. No third-party audit report is published. A defect could result in partial or total loss.</li>
+    <li><b>Dependency risk.</b> The protocol relies on Polygon, on QuickSwap, on IPFS and on public RPC providers. Failure or change in any of these may affect availability.</li>
+    <li><b>Regulatory risk.</b> The treatment of digital assets varies by jurisdiction and is subject to change, which may affect a participant's ability to hold or transfer OSG.</li>
+  </ul>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 13</div><div class="t">ROADMAP</div></div>
+  <h1 class="big">Roadmap</h1>
+  <div class="rule"></div>
+  <p class="lede">Delivered items are live on Polygon Mainnet today and can be verified at the addresses in Section 14.</p>
+  <table>
+    <thead><tr><th>Status</th><th>Item</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Delivered</td><td>Token, Reward Pool and Storage deployed and verified</td></tr>
+      <tr><td class="k">Delivered</td><td>Term Staking v2 and LP Mining live</td></tr>
+      <tr><td class="k">Delivered</td><td>P2P Exchange with automatic matching</td></tr>
+      <tr><td class="k">Delivered</td><td>Messenger and in-app assistant</td></tr>
+      <tr><td class="k">In progress</td><td>Transfer of remaining owner functions to the timelock</td></tr>
+      <tr><td class="k">In progress</td><td>Third-party security audit</td></tr>
+      <tr><td class="k">Planned</td><td>Exchange listings and expanded liquidity</td></tr>
+      <tr><td class="k">Planned</td><td>Independent block explorer for protocol activity</td></tr>
+    </tbody>
+  </table>
+  <div class="call"><p><b>No dates are given, deliberately.</b> Dated commitments in a whitepaper become promises. Items are listed by status, and status is updated as work completes.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 14</div><div class="t">VERIFIED CONTRACTS</div></div>
+  <h1 class="big">Verified Contracts</h1>
+  <div class="rule"></div>
+  <p class="lede">All addresses are on Polygon Mainnet and verified on Polygonscan.</p>
+  <table>
+    <thead><tr><th>Contract</th><th class="r">Address (Polygon, chain 137)</th></tr></thead>
+    <tbody>
+      <tr><td class="k">OSG Token</td><td class="num r" style="font-size:8.2pt">0xba05176748347944CC26900c821AbFeBeBC57415</td></tr>
+      <tr><td class="k">Reward Pool</td><td class="num r" style="font-size:8.2pt">0xDc4fE983ed301AD42F4E4C43951aa07A7a182855</td></tr>
+      <tr><td class="k">Reward Storage</td><td class="num r" style="font-size:8.2pt">0xa0b2DcB18Cf0BdF61bcB9D33F538167dF501BEcB</td></tr>
+      <tr><td class="k">Term Staking v2</td><td class="num r" style="font-size:8.2pt">0xb3DE3956DF62a069c9AC428Ec58120b3d9CD7cCc</td></tr>
+      <tr><td class="k">LP Mining</td><td class="num r" style="font-size:8.2pt">0x1F04F1441208ee8dDD3a124DEfc4a493d768d0fC</td></tr>
+      <tr><td class="k">Referral Ledger v5</td><td class="num r" style="font-size:8.2pt">0x58383A8171014a8008d28e7CbB509e21412ec52A</td></tr>
+      <tr><td class="k">Referral Lens</td><td class="num r" style="font-size:8.2pt">0xdF9462D08CDcB70BCFc56579faC863F128B7Ff27</td></tr>
+      <tr><td class="k">Referral Health</td><td class="num r" style="font-size:8.2pt">0x43dA472c78ed18fe5964C638B09F62a5bebf435C</td></tr>
+      <tr><td class="k">P2P Exchange</td><td class="num r" style="font-size:8.2pt">0x269EcA6aDb7c9c1beFDc6c0be48a545b1920E1bb</td></tr>
+      <tr><td class="k">Treasury</td><td class="num r" style="font-size:8.2pt">0x4669b2d38098Ae28D0332F03D1630B334aDDDF50</td></tr>
+      <tr><td class="k">Messenger</td><td class="num r" style="font-size:8.2pt">0x29c63cd4C3F03B1f64e929b0b8baC691DEB5FA5c</td></tr>
+      <tr><td class="k">Media Storage</td><td class="num r" style="font-size:8.2pt">0x88E64Cbc22a35c2928038f2bc13F06630C93D07A</td></tr>
+      <tr><td class="k">TimelockDAO</td><td class="num r" style="font-size:8.2pt">0xE2E82A8ACdd3Af7FA74Eacb3331231A769d80D4c</td></tr>
+      <tr><td class="k">OSG / WPOL pair</td><td class="num r" style="font-size:8.2pt">0xA15214B09a9b3E1c821B94fB97d6d3BcA8201Cd2</td></tr>
+    </tbody>
+  </table>
+  <div class="call warn"><p><b>Verify before you interact.</b> Confirm any address against this list before approving a transaction. Tokens imitating OSG may exist; an address absent from this list is not part of this protocol.</p></div>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+<section class="page">
+  <div class="grid-fade"></div>
+  <div class="shead"><div class="n">SECTION 15</div><div class="t">LEGAL NOTICE</div></div>
+  <h1 class="big">Legal Notice &amp; Disclaimer</h1>
+  <div class="rule"></div>
+  <p class="lede">Please read this section before taking any action based on this document.</p>
+  <ul class="bul">
+    <li><b>No offer or solicitation.</b> This document is published for information only. It does not constitute an offer to sell, a solicitation of an offer to buy, or a recommendation regarding any digital asset, security or financial instrument in any jurisdiction.</li>
+    <li><b>Not financial advice.</b> Nothing here is investment, legal, tax or accounting advice. Readers should obtain independent professional advice appropriate to their circumstances before participating.</li>
+    <li><b>No guarantee of outcome.</b> Reward rates are variable and depend on the emission schedule and on total participation. No return, yield, profit or preservation of capital is promised, projected or guaranteed.</li>
+    <li><b>Risk of total loss.</b> Participation may result in the loss of some or all of the value committed. See Section 12.</li>
+    <li><b>Forward-looking statements.</b> Statements about future development reflect present intention only. They are not commitments and may change or be abandoned without notice.</li>
+    <li><b>Jurisdictional restrictions.</b> Access may be restricted or prohibited under the laws applying to a reader. It is each reader's responsibility to determine whether participation is lawful for them.</li>
+    <li><b>Authoritative source.</b> Where this document and the deployed contracts differ, the contracts govern. This document may lag the code.</li>
+  </ul>
+  <div class="foot">
+    <div class="l"><span class="gem"></span>ONEX SMART GOLD</div>
+    <div class="r">WHITEPAPER V4.0 &middot; POLYGON MAINNET</div>
+  </div>
+</section>
+
+</body>
+</html>
